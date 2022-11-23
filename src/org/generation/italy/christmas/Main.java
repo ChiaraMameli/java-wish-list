@@ -1,17 +1,35 @@
 package org.generation.italy.christmas;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
-//	Creare una classe Main con metodo `main`, in cui implementare il seguente programma:
-//	creare una nuova *ArrayList* dove salvare la lista dei desideri
-//	continuare a chiedere all’utente di inserire un nuovo desiderio nella lista, fino a che l’utente sceglie di fermarsi
-//	Ad ogni iterazione mostrare la lunghezza della lista e chiedere all’utente se vuole continuare.
-//	Ad ogni iterazione aggiungere il desiderio alla lista.
-//	Al termine dell’inserimento ordinare la lista e stampare a video la lista ordinata.
+	public static class StringComparator implements Comparator<String>{
+
+		@Override
+		public int compare(String o1, String o2) {
+			int o1Vowels = 0;
+			int o2Vowels = 0;
+			
+			for(int x = 0; x < o1.length(); x++) {
+				if(o1.charAt(x) == 'a' || o1.charAt(x) == 'e' || o1.charAt(x) == 'i' || o1.charAt(x) == 'o' || o1.charAt(x) == 'u') o1Vowels += 1;
+			}
+						
+			for(int x = 0; x < o2.length(); x++) {
+				if(o2.charAt(x) == 'a' || o2.charAt(x) == 'e' || o2.charAt(x) == 'i' || o2.charAt(x) == 'o' || o2.charAt(x) == 'u') o2Vowels += 1;
+			}
+			
+			if(o1Vowels > o2Vowels) return 1;
+			if(o1Vowels < o2Vowels) return -1;
+			return 0;
+		}
+	}
 	
 	public static void main(String[] args) {
 		List <String> giftList = new ArrayList<>();
@@ -22,8 +40,9 @@ public class Main {
 		System.out.print("Vuoi aggiungere un regalo alla tua lista? y/n  ");
 		String proceed = sc.nextLine().toLowerCase();
 		
-		if(proceed != "y" && proceed != "n")
+		if(!proceed.equals("y") & !proceed.equals("n")) {
 			System.out.println("Il valore inserito non è valido.");
+		}
 		
 		if(proceed.equals("y")){
 			answer = true;
@@ -39,13 +58,45 @@ public class Main {
 					answer = false;
 					
 					System.out.println("Ecco la tua lista: ");
-					Collections.sort(giftList);
 					for(String gift : giftList) {
 						System.out.println(gift);
 					}
 				}
 					
 			}
+			
+			
+			
+			System.out.println("--------PART 2---------");
+			
+			System.out.print("Inserisci una parola: ");
+			String word = sc.nextLine();
+			
+			Set <Character> wordsList = new HashSet<>();
+			for(int x = 0; x < word.length(); x++) {
+				wordsList.add(word.charAt(x));
+			}
+			
+			System.out.println(wordsList);
+			
+			
+			
+			System.out.println("--------PART 3---------");
+			
+			System.out.print("Inserisci una parola: ");
+			String wordMap = sc.nextLine();
+			
+			Map<Integer, Character> lettersMap = new HashMap<>();
+			
+			for (int x = 0; x < wordMap.length(); x++) {
+				char wordChar = wordMap.charAt(x);
+				lettersMap.put(x, wordChar);
+			}
+			
+			System.out.println(lettersMap);
+			
+			sc.close();
+			
 		}
 	}
 }
